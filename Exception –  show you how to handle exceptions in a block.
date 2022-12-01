@@ -1,0 +1,69 @@
+set serveroutput on;
+declare
+name emp.ename%type;
+begin
+select ename into name from emp where empno=-1;
+exception
+when no_data_found then
+dbms_output.put_line('No such data');
+end;
+
+set serveroutput on;
+declare
+a number :=12;
+b number :=0;
+c number;
+exp1 exception ;
+begin
+if b=0 then
+raise exp1;
+elsif b>a then
+raise exp1;
+else
+c :=a/b;
+dbms_output.put_line('The division of a and b is'||c);
+end if;
+exception 
+when exp1 then
+dbms_output.put_line('Illegal division');
+
+end;
+
+set serveroutput on;
+declare
+name number;
+begin
+select ename into name from emp where empno=7900;
+exception
+when value_error then
+dbms_output.put_line('Change the datatype of the name variable into varchar');
+end;
+
+set serveroutput on;
+declare
+ex1 exception;
+pragma exception_init(ex1,-20015);
+n number :=10;
+begin
+for i in 1..n loop
+    dbms_output.put_line(i*i);
+    if i*i=36 then
+    RAISE_APPLICATION_ERROR(-20040,'The number 36 reached');
+    end if;
+    end loop;
+    end;
+    
+set serveroutput on;
+declare
+name emp.ename%ttype;
+v_code number;
+v_errm varchar2(64);
+begin
+select ename into name from emp where empno=-1;
+exception
+when other then
+    v_code :=SQLCODE;
+    v_errm :=SUBSTR(SQLERRM,1,40);
+    dbms_output.put_line('The code is '||v_code ||'Error message : '||v_errm);
+    insert into errors values(v_code,v_errm,sys timestamp);
+end;
