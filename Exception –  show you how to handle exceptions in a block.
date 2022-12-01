@@ -29,29 +29,9 @@ dbms_output.put_line('Illegal division');
 
 end;
 
-set serveroutput on;
-declare
-name number;
-begin
-select ename into name from emp where empno=7900;
-exception
-when value_error then
-dbms_output.put_line('Change the datatype of the name variable into varchar');
-end;
 
-set serveroutput on;
-declare
-ex1 exception;
-pragma exception_init(ex1,-20015);
-n number :=10;
-begin
-for i in 1..n loop
-    dbms_output.put_line(i*i);
-    if i*i=36 then
-    RAISE_APPLICATION_ERROR(-20040,'The number 36 reached');
-    end if;
-    end loop;
-    end;
+
+
     
 set serveroutput on;
 declare
