@@ -22,7 +22,7 @@ for i in 1..n loop
     end loop;
     end;
     
- set serveroutput on;
+set serveroutput on;
 declare
 a number :=12;
 b number :=0;
